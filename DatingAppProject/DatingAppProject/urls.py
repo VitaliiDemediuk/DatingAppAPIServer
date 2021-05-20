@@ -23,7 +23,7 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/vi/', include('DatingApp.urls'))
+    path('api/v1/', include('DatingApp.urls'))
 ]
 
 if settings.DEBUG:

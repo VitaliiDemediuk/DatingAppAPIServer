@@ -1,3 +1,19 @@
-from django.urls import path, include
+from django.urls import path, re_path, include
 
-urlpatterns = []
+import DatingApp.views as views
+
+urlpatterns = [
+    # Country -------------------------------------------------
+    path('country/', views.CountryCreateView.as_view()),
+    path('country/<int:pk>', views.CountryDetailView.as_view()),
+    path('country/all/', views.CountryListView.as_view()),
+    # City ----------------------------------------------------
+    path('city/', views.CityCreateView.as_view()),
+    path('city/<int:pk>', views.CityListView.as_view()),
+    path('city/all/', views.CityListView.as_view()),
+    path('city/all/<int:country_id>', views.CityListView.as_view()),
+    # User ----------------------------------------------------
+    path('user/', views.UserCreateView.as_view()),
+    path('user/<int:pk>', views.UserDetailView.as_view()),
+    path('user/all/', views.UserListView.as_view()),
+]
