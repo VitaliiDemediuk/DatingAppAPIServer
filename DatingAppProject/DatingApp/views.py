@@ -16,22 +16,25 @@ class CountryCreateView(generics.CreateAPIView):
 
 class CountryListView(generics.ListAPIView):
     serializer_class = serializers.CountrySerializer
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = services.get_countries()
 
 
 class CountryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.CountrySerializer
+    permission_classes = (my_permissions.IsAdminUserOrReadOnly,)
     queryset = services.get_countries()
-    permission_classes = (my_permissions.IsAdminUserOrReadOnly, )
 
 
 # City ----------------------------------------------------
 class CityCreateView(generics.CreateAPIView):
     serializer_class = serializers.CityDetailSerializer
+    permission_classes = (permissions.IsAdminUser, )
 
 
 class CityListView(generics.ListAPIView):
     serializer_class = serializers.CityListSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_queryset(self):
         country_id = self.kwargs.get("country_id")
@@ -41,6 +44,7 @@ class CityListView(generics.ListAPIView):
 
 class CityDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.CityDetailSerializer
+    permission_classes = (permissions.IsAdminUser, )
     queryset = services.get_cities()
 
 
@@ -52,6 +56,7 @@ class InterestCreateView(generics.CreateAPIView):
 
 class InterestListView(generics.ListAPIView):
     serializer_class = serializers.InterestSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         user_id = self.kwargs.get("user_id")
