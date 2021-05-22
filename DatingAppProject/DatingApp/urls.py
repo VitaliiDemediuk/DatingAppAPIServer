@@ -18,7 +18,6 @@ urlpatterns = [
     path('interest/all/', views.InterestListView.as_view()),
     path('interest/all/<int:user_id>/', views.InterestListView.as_view()),
     # User ----------------------------------------------------
-    path('user/', views.UserCreateView.as_view()),
     path('user/<int:pk>/', views.UserDetailView.as_view()),
     path('user/all/', views.UserListView.as_view()),
 ]

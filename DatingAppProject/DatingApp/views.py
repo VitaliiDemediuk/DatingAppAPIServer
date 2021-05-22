@@ -27,11 +27,11 @@ class CountryDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 # City ----------------------------------------------------
 class CityCreateView(generics.CreateAPIView):
-    serializer_class = serializers.CitySerializer
+    serializer_class = serializers.CityDetailSerializer
 
 
 class CityListView(generics.ListAPIView):
-    serializer_class = serializers.CitySerializer
+    serializer_class = serializers.CityListSerializer
 
     def get_queryset(self):
         country_id = self.kwargs.get("country_id")
@@ -40,7 +40,7 @@ class CityListView(generics.ListAPIView):
 
 
 class CityDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = serializers.CitySerializer
+    serializer_class = serializers.CityDetailSerializer
     queryset = services.get_cities()
 
 
@@ -66,10 +66,6 @@ class InterestDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 # User ----------------------------------------------------
-class UserCreateView(generics.CreateAPIView):
-    serializer_class = serializers.UserDetailSerializer
-
-
 class UserListView(generics.ListAPIView):
     serializer_class = serializers.UserListSerializer
     permission_classes = (permissions.IsAdminUser, )
