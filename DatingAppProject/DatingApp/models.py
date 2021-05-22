@@ -30,22 +30,21 @@ class City(models.Model):
 
 class CustomUser(AbstractUser):
     username = None
-    first_name = models.CharField(max_length=100)
-    second_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100, null=True)
+    second_name = models.CharField(max_length=100, null=True)
     email = models.EmailField('email address', unique=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the "
                                          "format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
-    city = models.ForeignKey('City', on_delete=models.CASCADE)
-    birthdate = models.DateField()
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, null=True)  # validators should be a list
+    city = models.ForeignKey('City', on_delete=models.CASCADE, null=True)
+    birthdate = models.DateField(auto_now_add=True)
     GENDER_CHOICES = (
         (1, 'male'),
         (2, 'female'),
     )
-    gender = models.IntegerField(choices=GENDER_CHOICES, default=1)
-    information = models.TextField()
-    photos = models.ForeignKey('PhotoForUser', on_delete=models.CASCADE)
+    gender = models.IntegerField(choices=GENDER_CHOICES, default=1, null=True)
+    information = models.TextField(null=True)
     add_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
     seen_users = models.ManyToManyField('CustomUser', through='SeenUsers', related_name='seen_user_list')
@@ -66,6 +65,7 @@ class CustomUser(AbstractUser):
 
 
 class PhotoForUser(models.Model):
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE)
     file_name = models.ImageField(upload_to="photos_for_user/%Y/%m/%d/")
     position = models.IntegerField(validators=[MinValueValidator(0)])
 
