@@ -5,10 +5,10 @@ from rest_framework.permissions import IsAdminUser
 
 class IsAdminUserOrReadOnly(BasePermission):
 
-    def has_permission(self, request, view):
+    def has_permission(self, request, *args, **kwargs):
         return request.method in permissions.SAFE_METHODS or \
-               IsAdminUser.has_permission(request, view)
+               IsAdminUser().has_permission(request, *args, **kwargs)
 
-    def has_object_permission(self, request, view, obj):
+    def has_object_permission(self, request,  *args, **kwargs):
         return request.method in permissions.SAFE_METHODS or \
-               IsAdminUser.has_object_permission(request, view)
+               IsAdminUser().has_object_permission(request, *args, **kwargs)
