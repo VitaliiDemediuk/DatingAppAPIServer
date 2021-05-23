@@ -34,6 +34,13 @@ class InterestSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class InterestForUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.InterestForUser
+        fields = ('id', 'user', 'interest')
+
+
 # User ----------------------------------------------------
 class PhotoForUserSerializer(serializers.ModelSerializer):
 

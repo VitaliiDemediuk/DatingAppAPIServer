@@ -1,7 +1,9 @@
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework import views
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework.parsers import JSONParser
 
 import DatingApp.services as services
 import DatingApp.serializers as serializers
@@ -84,3 +86,23 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.UserDetailSerializer
     permission_classes = (permissions.IsAdminUser,)
     queryset = services.get_users()
+
+
+class InterestForUserView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    parser_classes = [JSONParser]
+
+    def post(self, request):
+        data: dict = request.data
+
+        user_id = data.get("user")
+        interest_ids = data.get("interests")
+
+        did_set, detail = False, ""
+        if request.user.id is user_id:
+            did_set, detail = services.set_interests_for_user(user_id, interest_ids)
+        else:
+            did_set, detail = False, "Field user is not similar to user"
+
+        return Response(data={'detail': detail}, status=(201 if status.HTTP_201_CREATED else
+                                                                status.HTTP_400_BAD_REQUEST))

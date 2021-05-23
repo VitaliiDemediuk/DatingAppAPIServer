@@ -20,4 +20,5 @@ urlpatterns = [
     # User ----------------------------------------------------
     path('user/<int:pk>/', views.UserDetailView.as_view()),
     path('user/all/', views.UserListView.as_view()),
+    path('user/set-interests', views.InterestForUserView.as_view()),
 ]
