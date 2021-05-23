@@ -40,8 +40,8 @@ class CustomUser(AbstractUser):
     city = models.ForeignKey('City', on_delete=models.CASCADE)
     birthdate = models.DateField()
     GENDER_CHOICES = (
-        (1, 'male'),
-        (2, 'female'),
+        (1, 'Male'),
+        (2, 'Female'),
     )
     gender = models.IntegerField(choices=GENDER_CHOICES, default=1, null=True)
     information = models.TextField(blank=True)

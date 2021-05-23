@@ -71,3 +71,20 @@ class UserListSerializer(serializers.ModelSerializer):
         model = models.CustomUser
         fields = ('id', 'first_name', 'second_name',
                   'email', 'gender', 'city')
+
+
+# Message -------------------------------------------------
+class MessageDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Message
+        fields = ('id', 'sender', 'receiver', 'message')
+
+
+class MessageListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Message
+        fields = ('id', 'sender', 'receiver',
+                  'message', 'add_date')
+
